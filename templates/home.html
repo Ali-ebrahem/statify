@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Statify{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+            <div class="hero-badge">Version 1.0 Academic Project</div>
+
+            <h1 class="hero-title">Statify</h1>
+
+            <p class="hero-subtitle">
+                Smart statistical analysis for real-world datasets in medical and engineering domains.
+                Upload your data, explore patterns, and visualize results through a modern interactive interface.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+                <a href="/upload/" class="btn btn-main">Upload Dataset</a>
+                <a href="#" class="btn btn-outline-custom">Project Overview</a>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="hero-chart-card">
+                <div class="chart-bars">
+                    <div class="chart-bar bar-1"></div>
+                    <div class="chart-bar bar-2"></div>
+                    <div class="chart-bar bar-3"></div>
+                    <div class="chart-bar bar-4"></div>
+                    <div class="chart-bar bar-5"></div>
+                    <div class="chart-bar bar-6"></div>
+                    <div class="chart-bar bar-7"></div>
+                    <div class="chart-bar bar-8"></div>
+                </div>
+
+                <svg class="chart-line" viewBox="0 0 600 360" preserveAspectRatio="none">
+                    <polyline
+                        fill="none"
+                        stroke="#c7d8ff"
+                        stroke-width="3"
+                        points="20,270 80,240 140,220 200,170 260,195 320,145 380,165 440,120 500,155 560,90"
+                        opacity="0.95">
+                    </polyline>
+                    <polyline
+                        fill="none"
+                        stroke="#7dd3fc"
+                        stroke-width="2.5"
+                        points="20,290 80,275 140,248 200,232 260,210 320,190 380,205 440,180 500,135 560,155"
+                        opacity="0.85">
+                    </polyline>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-section">
+    <h2 class="section-heading">Domain Specialization</h2>
+    <div class="section-underline"></div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="feature-card">
+                <div class="feature-icon">✚</div>
+                <h3 class="feature-title">Medical Analysis</h3>
+                <p class="feature-text">
+                    Analyze healthcare datasets such as age, blood pressure, sugar level, heart rate,
+                    and other patient-related variables using clear statistical summaries and visual reports.
+                </p>
+                <a href="/upload/" class="feature-link">Explore medical module →</a>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="feature-card">
+                <div class="feature-icon">⚙</div>
+                <h3 class="feature-title">Engineering Analysis</h3>
+                <p class="feature-text">
+                    Process engineering data such as load, stress, temperature, efficiency, and performance indicators
+                    to compare conditions and understand technical behavior more effectively.
+                </p>
+                <a href="/upload/" class="feature-link">Explore engineering module →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-section">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="stats-card-large">
+                <div class="mini-label">System Capability</div>
+                <div class="big-number">Fast<span>Processing</span></div>
+                <p class="muted-paragraph">
+                    Statify helps transform uploaded datasets into readable statistical output, offering quick previews,
+                    descriptive summaries, and visual exploration in a clean web-based environment.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="stats-card-small h-100">
+                <div class="mini-label">Project Focus</div>
+                <h3 class="feature-title mt-2" style="font-size: 2rem;">Clear Insights</h3>
+                <p class="feature-text mb-0" style="max-width: 100%;">
+                    Built to simplify data analysis for academic and practical use cases through a structured,
+                    user-friendly dashboard experience.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-custom text-center">
+    <div class="footer-links mb-3">
+        <a href="#">Project Info</a>
+        <a href="#">Documentation</a>
+        <a href="#">Data Modules</a>
+    </div>
+    <div>© 2026 Statify Data Analysis Project</div>
+</footer>
+{% endblock %}

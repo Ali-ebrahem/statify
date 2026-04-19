@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Statify{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #030b1f;
+            --bg-secondary: #07152f;
+            --navbar-bg: rgba(8, 18, 45, 0.85);
+            --card-bg: rgba(20, 32, 63, 0.92);
+            --card-border: rgba(120, 160, 255, 0.10);
+            --primary: #6ea8ff;
+            --primary-strong: #3b82f6;
+            --accent: #7dd3fc;
+            --text-main: #e8eefc;
+            --text-muted: #9aa8c7;
+            --line: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 30%),
+                radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 25%),
+                linear-gradient(180deg, #06122c 0%, #020a1b 45%, #010716 100%);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .navbar-custom {
+            background: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 14px;
+            padding-bottom: 14px;
+        }
+
+        .brand-logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: #f4f7ff !important;
+        }
+
+        .nav-link-custom {
+            color: #cdd7ef !important;
+            font-size: 0.98rem;
+            position: relative;
+            padding-bottom: 6px !important;
+        }
+
+        .nav-link-custom:hover,
+        .nav-link-custom.active-link {
+            color: #ffffff !important;
+        }
+
+        .nav-link-custom.active-link::after {
+            content: "";
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: -2px;
+            height: 2px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #9cc3ff, #ffffff);
+        }
+
+        .search-box {
+            background: rgba(3, 10, 28, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #dbe7ff;
+            border-radius: 12px;
+            padding: 10px 14px;
+            outline: none;
+            width: 260px;
+        }
+
+        .search-box::placeholder {
+            color: #8ea0c2;
+        }
+
+        .profile-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dbeafe, #93c5fd);
+            color: #0f172a;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-left: 12px;
+        }
+
+        .page-section {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(255, 255, 255, 0.03);
+            color: #d7e4ff;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 26px;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            line-height: 0.95;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+            color: #f5f8ff;
+        }
+
+        .hero-subtitle {
+            font-size: 1.45rem;
+            line-height: 1.45;
+            color: #d9e2f4;
+            max-width: 580px;
+            margin-bottom: 34px;
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, #9dc0ff, #5d97ff);
+            color: #0b1530;
+            border: none;
+            font-weight: 700;
+            padding: 16px 28px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.26);
+        }
+
+        .btn-main:hover {
+            background: linear-gradient(135deg, #b4d0ff, #76a9ff);
+            color: #091224;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: #eef4ff;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            font-weight: 600;
+            padding: 16px 28px;
+            border-radius: 16px;
+        }
+
+        .btn-outline-custom:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+
+        .hero-chart-card {
+            background:
+                linear-gradient(180deg, rgba(18, 30, 62, 0.92), rgba(9, 18, 40, 0.96));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            min-height: 360px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-chart-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.35;
+        }
+
+        .chart-bars {
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            bottom: 16%;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            z-index: 2;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, rgba(203, 213, 225, 0.82), rgba(148, 163, 184, 0.18));
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 0 18px rgba(255,255,255,0.08);
+        }
+
+        .bar-1 { height: 90px; }
+        .bar-2 { height: 140px; }
+        .bar-3 { height: 215px; }
+        .bar-4 { height: 165px; }
+        .bar-5 { height: 260px; }
+        .bar-6 { height: 210px; }
+        .bar-7 { height: 285px; }
+        .bar-8 { height: 180px; }
+
+        .chart-line {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .section-heading {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .section-underline {
+            width: 54px;
+            height: 4px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #9cc3ff, #7dd3fc);
+            margin-bottom: 34px;
+        }
+
+        .feature-card {
+            background: linear-gradient(180deg, rgba(20, 33, 66, 0.96), rgba(18, 30, 58, 0.96));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 30px;
+            min-height: 255px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+        }
+
+        .feature-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(88, 130, 255, 0.08);
+            top: -70px;
+            right: -70px;
+        }
+
+        .feature-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            background: rgba(84, 122, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+        }
+
+        .feature-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .feature-text {
+            font-size: 1.08rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 500px;
+        }
+
+        .feature-link {
+            color: #7dd3fc;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.92rem;
+        }
+
+        .stats-card-large,
+        .stats-card-small {
+            background: linear-gradient(180deg, rgba(20, 33, 66, 0.96), rgba(18, 30, 58, 0.96));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+        }
+
+        .stats-card-large {
+            padding: 34px;
+            min-height: 230px;
+        }
+
+        .stats-card-small {
+            padding: 34px;
+            min-height: 230px;
+        }
+
+        .mini-label {
+            color: #d5def2;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .big-number {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 18px;
+        }
+
+        .big-number span {
+            font-size: 2.2rem;
+            color: #78c6ff;
+            margin-left: 4px;
+        }
+
+        .muted-paragraph {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 540px;
+        }
+
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .footer-custom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 34px;
+            padding-bottom: 26px;
+            margin-top: 50px;
+            color: #7586a8;
+        }
+
+        .footer-links a {
+            color: #7586a8;
+            margin: 0 14px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-links a:hover {
+            color: #dbe7ff;
+        }
+
+        @media (max-width: 991px) {
+            .hero-title {
+                font-size: 3.6rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.18rem;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .hero-chart-card {
+                margin-top: 30px;
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-heading {
+                font-size: 2.2rem;
+            }
+
+            .big-number {
+                font-size: 3.6rem;
+            }
+
+            .footer-links a {
+                display: inline-block;
+                margin: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+    <div class="container">
+        <a class="navbar-brand brand-logo" href="/">Statify</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav mx-auto gap-lg-3">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if request.path == '/' %}active-link{% endif %}" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if '/upload/' in request.path %}active-link{% endif %}" href="/upload/">Upload</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if '/dashboard/' in request.path %}active-link{% endif %}" href="/dashboard/">Dashboard</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center mt-3 mt-lg-0">
+                <input type="text" class="search-box" placeholder="Search insights...">
+                <div class="profile-circle">S</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

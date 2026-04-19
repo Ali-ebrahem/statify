@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Statify{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <div class="hero-badge mb-2">Analysis Workspace</div>
+            <h1 class="section-heading mb-1" style="font-size: 2.8rem;">Dashboard</h1>
+            <p class="feature-text mb-0" style="max-width: 700px;">
+                Explore dataset summaries, visual indicators, and statistical output through a clean dashboard layout.
+            </p>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a href="/upload/" class="btn btn-outline-custom">Upload New File</a>
+            <a href="#" class="btn btn-main">Generate Report</a>
+        </div>
+    </div>
+
+    <!-- ✅ Stats Cards -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card-small">
+                <div class="mini-label">Mean Value</div>
+                <div class="big-number" style="font-size: 3rem;">
+                    {{ mean|default:"-" }}
+                </div>
+                <p class="feature-text mb-0" style="font-size: 0.98rem;">
+                    Average numeric value from dataset.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card-small">
+                <div class="mini-label">Maximum</div>
+                <div class="big-number" style="font-size: 3rem;">
+                    {{ max|default:"-" }}
+                </div>
+                <p class="feature-text mb-0" style="font-size: 0.98rem;">
+                    Highest value detected.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card-small">
+                <div class="mini-label">Minimum</div>
+                <div class="big-number" style="font-size: 3rem;">
+                    {{ min|default:"-" }}
+                </div>
+                <p class="feature-text mb-0" style="font-size: 0.98rem;">
+                    Lowest value detected.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="stats-card-small">
+                <div class="mini-label">Total Records</div>
+                <div class="big-number" style="font-size: 3rem;">
+                    {{ count|default:"-" }}
+                </div>
+                <p class="feature-text mb-0" style="font-size: 0.98rem;">
+                    Number of rows in dataset.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ✅ Chart Section -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="stats-card-large">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                    <div>
+                        <div class="mini-label mb-2">Visualization Area</div>
+                        <h3 class="feature-title mb-0" style="font-size: 2rem;">Performance Overview</h3>
+                    </div>
+                    <span class="badge rounded-pill text-bg-primary px-3 py-2">Dynamic Chart</span>
+                </div>
+
+                <!-- 🔥 Plotly Chart -->
+                <div class="hero-chart-card p-3">
+                    {% if chart %}
+                        {{ chart|safe }}
+                    {% else %}
+                        <div class="text-center mt-5">
+                            <p class="feature-text">Upload a dataset to generate charts</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ✅ Insight Section -->
+        <div class="col-lg-4">
+            <div class="stats-card-large h-100">
+                <div class="mini-label">Quick Summary</div>
+                <h3 class="feature-title" style="font-size: 1.8rem;">Statistical Notes</h3>
+
+                <!-- 🔥 Insight (FINAL STYLE) -->
+                <div class="feature-text" style="background: rgba(125, 211, 252, 0.08); padding: 15px; border-radius: 12px;">
+                    {% if insight %}
+                        <strong style="color:#7dd3fc;">Insight:</strong><br>
+                        {{ insight }}
+                    {% else %}
+                        Upload a dataset to generate statistical insights.
+                    {% endif %}
+                </div>
+
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between py-2" style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                        <span style="color:#dbe7ff;">Selected Domain</span>
+                        <span style="color:#7dd3fc;">{{ domain|default:"-" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                        <span style="color:#dbe7ff;">Status</span>
+                        <span style="color:#7dd3fc;">Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
